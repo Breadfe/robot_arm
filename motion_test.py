@@ -60,7 +60,7 @@ def torque_on():
             print("%s" % packetHandler.getTxRxResult(dxl_comm_result))
         elif dxl_error != 0:
             print("%s" % packetHandler.getRxPacketError(dxl_error))
-    # print('\033[32m' + 'Torque On' + '\033[0m')
+    print('\033[32m' + 'Torque On' + '\033[0m')
 
 #Torque Off
 def torque_off():
@@ -70,7 +70,7 @@ def torque_off():
             print("%s" % packetHandler.getTxRxResult(dxl_comm_result))
         elif dxl_error != 0:
             print("%s" % packetHandler.getRxPacketError(dxl_error))
-    # print('\033[31m' + 'Torque Off' + '\033[0m')
+    print('\033[31m' + 'Torque Off' + '\033[0m')
 
 
 def decimal_to_bit(position):
@@ -133,7 +133,7 @@ def get_joint_pos():
             
         positions.append(deg)
     position_groupBulkRead.clearParam()
-    #print(positions)
+    print(positions)
     return positions
 
 def joint_move_to(target_point):
@@ -176,17 +176,37 @@ def joint_move_to(target_point):
                 break
 
 #------------------------------Functions------------------------------#            
-    
-
+def 닭댄스():
+    joint_move_to([182.2, 174.37, 133.86, 184.92, 151.87, 182.37])
+    #time.sleep(10)
+    for t in range(2):
+        speed_joint_move_to([182.37, 146.42, 277.47, 185.62, 119.98, 180], 70)
+        for _ in range(2):
+            speed_joint_move_to([184.57, 197.23, 231.33, 184.22, 111.18, 180], 100)
+            speed_joint_move_to([182.37, 146.42, 277.47, 185.62, 119.98, 180], 100)
+        
+        speed_joint_move_to([0.62, 146.42, 277.47, 185.62, 119.98, 180], 70)
+        for _ in range(2):
+            speed_joint_move_to([0.62, 197.23, 231.33, 184.22, 111.18, 180], 100)
+            speed_joint_move_to([0.62, 146.42, 277.47, 185.62, 119.98, 180], 100)
+    joint_move_to([182.2, 174.37, 133.86, 184.92, 151.87, 182.37])
+def 고양이쓰다듬기():
+    for _ in range(4):
+        joint_move_to([180.88, 221.83, 143.79, 178.86, 259.89, 183.34])
+        joint_move_to([180.88, 221.83, 143.79, 178.86, 240.38, 183.34])
+    joint_move_to([180.88, 221.83, 143.79, 178.86, 259.89, 183.34])
 if __name__ == '__main__':
     
-    while True:
-        a = int(input())
-        print(a)
-        if a == 1:
-            torque_on()
-            print(f'joint_move_to({get_joint_pos()})')
-            torque_off()
-        elif a == 2:
-            print('end')
-            break
+    # torque_on()
+    # time.sleep(1)
+    # torque_off()
+    # deg_to_decimal(359)
+    # decimal_to_deg(2000)
+    torque_on()
+    get_joint_pos()
+    set_speed(100)
+    고양이쓰다듬기()
+    # torque_off()
+   
+    # torque_off()
+    pass
