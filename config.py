@@ -40,11 +40,11 @@ MOTOR_SPEED = 300
 
 motors = [DXL10, DXL21, DXL22, DXL23, DXL24, DXL25]
 
-step = 51  # defalut step
+
 speed = 70 # defalut speed
 MAX_MOTOR_STEP = 100
 MIN_MOTOR_STEP = 30 # 30 recommended
-
+step = step = int(-(MAX_MOTOR_STEP-MIN_MOTOR_STEP)/100*speed + MAX_MOTOR_STEP)  # defalut step
 
 def deg_to_decimal(deg):
     # 0 4095 <- 0 360

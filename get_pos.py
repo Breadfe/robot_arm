@@ -79,8 +79,9 @@ def decimal_to_bit(position):
                         DXL_LOBYTE(DXL_HIWORD(position)), 
                         DXL_HIBYTE(DXL_HIWORD(position))]
 
-def set_speed(speed): # SPEED -> 0~100
+def set_speed(speed_val): # SPEED -> 0~100
     global step
+    global speed
     if speed > 100:
         speed = 100
     elif speed < 0:
@@ -90,10 +91,16 @@ def set_speed(speed): # SPEED -> 0~100
     if speed == 0:
         step = 0
     else:
-        step = int(-(MAX_MOTOR_STEP-MIN_MOTOR_STEP)/100*speed + MAX_MOTOR_STEP)
+        step = int(-(MAX_MOTOR_STEP-MIN_MOTOR_STEP)/100*speed_val + MAX_MOTOR_STEP)
+        speed = speed_val
         print(step)    
 
-def speed_joint_move_to(point, speed):
+def speed_joint_move_to(target_point, speed_val):
+    global speed
+    temp = speed
+    set_speed(speed_val)
+    joint_move_to(target_point)
+    set_speed(temp)
     pass
     
 def get_joint_pos():
@@ -180,12 +187,12 @@ if __name__ == '__main__':
     # decimal_to_deg(2000)
     torque_on()
     get_joint_pos()
-    set_speed(70)
+    set_speed(90)
     # torque_off()
     for _ in range(1):
         print(f'{_+1} times try')
         joint_move_to([180, 180, 141.68, 180, 248.38, 180])
-        joint_move_to([180.61, 140.27, 276.85, 179.47, 126.03, 179.65])
+        speed_joint_move_to([180.61, 140.27, 276.85, 179.47, 126.03, 179.65], 10)
         joint_move_to([127.62, 182.11, 258.05, 187.82, 94.83, 170.68])
         joint_move_to([120.67, 191.16, 214.19, 183.34, 216.39, 181.32])
         joint_move_to([182.2, 174.37, 133.86, 184.92, 151.87, 182.37])
