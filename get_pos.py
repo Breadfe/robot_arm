@@ -182,7 +182,7 @@ if __name__ == '__main__':
     
     while True:
         a = int(input())
-        print(a)
+        #print(a)
         if a == 1:
             torque_on()
             print(f'joint_move_to({get_joint_pos()})')
